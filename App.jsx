@@ -1,18 +1,13 @@
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import Login from './screens/authenticationscreen/login';
-
-const Stack = createStackNavigator();
+import { Text, View } from 'react-native';
+import Login from './screens/authenticationscreen/login';  // Adjust path if needed
 
 const App = () => {
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="SignUP" component={Login} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <View style={{ flex: 1 }}>
+      <Login />
+      {/* <Text style={{color: 'black'}}>Hello</Text> */}
+    </View>
   );
 };
 
