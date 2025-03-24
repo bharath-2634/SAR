@@ -10,12 +10,21 @@ buildscript {
     repositories {
         google()
         mavenCentral()
+        gradlePluginPortal()  // 🔹 Ensure this is included
     }
     dependencies {
-        classpath("com.android.tools.build:gradle")
+        classpath("com.android.tools.build:gradle:8.2.0")  // 🔹 Ensure version is set
         classpath("com.facebook.react:react-native-gradle-plugin")
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin")
+        classpath("com.google.gms:google-services:4.4.2")  // 🔹 Google services plugin
     }
 }
 
-apply plugin: "com.facebook.react.rootproject"
+apply plugin: "com.facebook.react.rootproject"  // ✅ Keep this for React Native
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+    }
+}

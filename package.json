@@ -10,7 +10,15 @@
     "test": "jest"
   },
   "dependencies": {
+    "@hapi/hoek": "^11.0.7",
+    "@hapi/joi": "^17.1.1",
+    "@react-native-async-storage/async-storage": "^2.1.2",
+    "@react-native-firebase/app": "^21.12.1",
+    "@react-native-firebase/auth": "^21.12.1",
+    "@react-native-firebase/firestore": "^21.12.1",
+    "@react-native-firebase/storage": "^21.12.1",
     "@react-navigation/native": "^7.0.18",
+    "@react-navigation/native-stack": "^7.3.2",
     "@react-navigation/stack": "^7.2.2",
     "react": "19.0.0",
     "react-native": "0.78.1",
