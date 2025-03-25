@@ -11,8 +11,8 @@ export default function Login( {navigation}) {
 
   const handleLogin = async () => {
     try {
-      const user = await signIn(email,password);
-      navigation.replace('Home');
+      await signIn(email,password);
+      // navigation.replace('Home');
     }catch(error) {
       Alert.alert('Login Error', error.message);
     }
@@ -20,8 +20,8 @@ export default function Login( {navigation}) {
 
   const handleSignUp = async() => {
     try {
-      const user = await signUp(email, password);
-      navigation.replace('Home');
+      await signUp(email, password);
+      // navigation.replace('Home');
     } catch (error) {
       Alert.alert('SignUp Error', error.message);
     }
