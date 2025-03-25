@@ -4,7 +4,7 @@ import { Alert, StyleSheet, View, Button } from 'react-native';
 import { Text } from 'react-native';
 import QRCode from 'react-native-qrcode-svg';
 import { signOut } from '../../utils/FirebaseUtils';
-import { getCurrentUser } from '../../utils/FirebaseUtils'; // Function to get user data
+import { getCurrentUser } from '../../utils/FirebaseUtils'; 
 
 export default function Home() {
     const navigation = useNavigation();
