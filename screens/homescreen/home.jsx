@@ -10,12 +10,11 @@ export default function Home() {
     const navigation = useNavigation();
     const [userId, setUserId] = useState('');
 
-    // Fetch user data
     useEffect(() => {
         async function fetchUser() {
-            const user = await getCurrentUser(); // Fetch user data from Firebase
+            const user = await getCurrentUser();
             if (user) {
-                setUserId(user.uid); // Set the userId
+                setUserId(user.uid);
             }
         }
         fetchUser();
