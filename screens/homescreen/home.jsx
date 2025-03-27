@@ -38,12 +38,10 @@ export default function Home() {
                 <Button title="Info" onPress={() => navigation.replace('Info')} style={styles.button} />
             </View>
 
-            {/* ✅ Display QR Code Here */}
             <View style={styles.qrContainer}>
                 <Text style={styles.qrText}>Scan to Get User ID</Text>
                 {userId ? (
                     <QRCode value={userId} size={200} backgroundColor="white" color="black" />
-                    // <Text>Hello</Text>
                 ) : (
                     <Text style={styles.qrText}>Loading...</Text>
                 )}
