@@ -1,24 +1,46 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useState, useEffect } from 'react';
-import { Alert, StyleSheet, View, Button } from 'react-native';
-import { Text } from 'react-native';
+import { Alert, StyleSheet, View, Button, Text, ActivityIndicator } from 'react-native';
 import QRCode from 'react-native-qrcode-svg';
-import { signOut } from '../../utils/FirebaseUtils';
-import { getCurrentUser } from '../../utils/FirebaseUtils'; 
+import firestore from '@react-native-firebase/firestore';
+import { signOut, getCurrentUser } from '../../utils/FirebaseUtils'; 
 
 export default function Home() {
     const navigation = useNavigation();
     const [userId, setUserId] = useState('');
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         async function fetchUser() {
             const user = await getCurrentUser();
             if (user) {
                 setUserId(user.uid);
+                checkUserLoggedIn(user.uid);
+            } else {
+                setLoading(false);
             }
         }
         fetchUser();
     }, []);
+
+    // Function to check if the user is logged in from Firestore
+    const checkUserLoggedIn = async (uid) => {
+        try {
+            const userRef = firestore().collection('users').doc(uid);
+            const userDoc = await userRef.get();
+
+            if (userDoc.exists) {
+                const isLoggedIn = userDoc.data().loggedIn;
+                if (isLoggedIn) {
+                    navigation.replace('Products');  // Redirect to Products page
+                }
+            }
+        } catch (error) {
+            console.error('Error fetching user login status:', error);
+        } finally {
+            setLoading(false);
+        }
+    };
 
     const logOut = async () => {
         try {
@@ -29,13 +51,22 @@ export default function Home() {
         }
     };
 
+    if (loading) {
+        return (
+            <View style={styles.loadingContainer}>
+                <ActivityIndicator size="large" color="#fff" />
+                <Text style={styles.loadingText}>Checking login status...</Text>
+            </View>
+        );
+    }
+
     return (
         <View style={styles.homeContainer}>
             <View style={styles.header}>
-                <Button title="Logout" onPress={logOut} style={styles.button} />
+                <Button title="Logout" onPress={logOut} />
             </View>
             <View style={styles.header}>
-                <Button title="Info" onPress={() => navigation.replace('Info')} style={styles.button} />
+                <Button title="Info" onPress={() => navigation.replace('Info')} />
             </View>
 
             <View style={styles.qrContainer}>
@@ -52,19 +83,24 @@ export default function Home() {
 
 const styles = StyleSheet.create({
     homeContainer: {
-        width: '100%',
-        height: '100%',
+        flex: 1,
         backgroundColor: '#000',
         alignItems: 'center',
         justifyContent: 'center',
     },
+    loadingContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    loadingText: {
+        color: 'white',
+        fontSize: 18,
+        marginTop: 10,
+    },
     header: {
         width: '100%',
         padding: 10,
-    },
-    button: {
-        backgroundColor: '#888',
-        borderRadius: 20,
     },
     qrContainer: {
         marginTop: 20,
@@ -79,3 +115,5 @@ const styles = StyleSheet.create({
         marginBottom: 10,
     },
 });
+
+// export default Home;

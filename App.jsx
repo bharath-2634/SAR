@@ -8,6 +8,7 @@ import Login from './screens/authenticationscreen/login';
 import Home from './screens/homescreen/home';
 import Info from './screens/generalScreens/info';
 import Loading from './screens/generalScreens/loading';
+import Products from './screens/productScreen/products';
 
 const Stack = createNativeStackNavigator();
 
@@ -16,6 +17,7 @@ const AuthenticatedStack = () => (
   <Stack.Navigator>
     <Stack.Screen name="Home" component={Home} />
     <Stack.Screen name="Info" component={Info} options={{ headerShown: false }}/>
+    <Stack.Screen name="Products" component={Products} options={{ headerShown: false }}/>
   </Stack.Navigator>
 );
 
